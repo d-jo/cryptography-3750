@@ -32,7 +32,10 @@ func main() {
 	ct = atbash(ct)
 	fmt.Println(toString(ct))
 
-	var scy = scytale(toIntArr("EIEPAADSNERDUATREVCNIIFEAONTURTRPYGSINRAEIOAONITNMSDNY"), 6)
+	var scy = scytale_dec(toIntArr("EIEPAADSNERDUATREVCNIIFEAONTURTRPYGSINRAEIOAONITNMSDNY"), 6)
+	fmt.Println(toString(scy))
+
+	scy = scytale_dec(toIntArr("TWETIHAXROESAANSAMNCCNPSIYELPPTAEOHAROSELLFIREYAT"), 5)
 	fmt.Println(toString(scy))
 }
 
@@ -45,7 +48,10 @@ func atbash(text []int) []int {
 }
 
 func scytale_dec(text []int, lines int) []int {
-	var res [6][]int
+	var res [][]int
+	for i := 0; i < lines; i++ {
+		res = append(res, []int{})
+	}
 	for pos, char := range text {
 		res[pos%lines] = append(res[pos%lines], char)
 	}
