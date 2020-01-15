@@ -41,6 +41,12 @@ func main() {
 	var vg = vigenere_enc_autokey(toIntArr("WALTERRALEIGHBRINGSTOBACCOTOENGLANDFROMAMERICA"), toIntArr("B")[0])
 	fmt.Println(toString(vg))
 	fmt.Println(toString(vigenere_dec_autokey(vg, toIntArr("B")[0])))
+
+	var kk = kid_krypto_init(47, 22, 11, 5)
+	fmt.Println(kk)
+	var kkEnc = kid_krypto_enc(kk, 1958)
+	fmt.Println(kkEnc)
+	fmt.Println(kid_krypto_dec(kk, kkEnc))
 }
 
 func atbash(text []int) []int {
@@ -100,4 +106,21 @@ func vigenere_dec_autokey(text []int, key int) []int {
 		res = append(res, (char-res[pos]+26)%26)
 	}
 	return res
+}
+
+func kid_krypto_init(a, b, A, B int) (res map[string]int) {
+	res = make(map[string]int)
+	res["M"] = (a * b) - 1
+	res["e"] = (A * res["M"]) + a
+	res["d"] = (B * res["M"]) + b
+	res["n"] = ((res["e"] * res["d"]) - 1) / res["M"]
+	return res
+}
+
+func kid_krypto_enc(kk map[string]int, x int) int {
+	return (kk["e"] * x) % kk["n"]
+}
+
+func kid_krypto_dec(kk map[string]int, y int) int {
+	return (kk["d"] * y) % kk["n"]
 }
