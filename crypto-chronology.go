@@ -2,51 +2,68 @@ package main
 
 import "fmt"
 
-func toIntArr(text string) []int {
+func main() {
+
+	var str = "EGDHE TGXIN XHCDI LXIWD JIBPC NUTPG HPCSS XHIPG ITHPC SPSKT GHXIN XHCDI LXIWD JIRDB UDGIH PCSWD ETH"
+	var freq, count = freq(str)
+	fmt.Println(count)
+	fmt.Println(freq)
+	var text = toIntArrBasic(str)
+	for i := 0; i < 26; i++ {
+		fmt.Printf("%d\n - %s\n - %s\n", i, str, toStringBasic(shift(text, i)))
+	}
+
+	/*
+		var name = toIntArrBasic("DECLANJOHNSON")
+		var ten = shift(name, 10)
+		var sixteen = shift(name, 16)
+		var both = shift(ten, 16)
+		fmt.Println(toStringBasic(name))
+		fmt.Println(toStringBasic(ten))
+		fmt.Println(toStringBasic(sixteen))
+		fmt.Println(toStringBasic(both))
+
+		/*
+			var freqMap, _ = rel_freq("test")
+			fmt.Println(freqMap)
+
+			var ct = toIntArrBasic("KINGOFSHESHACHSHALLDRINK")
+			ct = atbash(ct)
+			fmt.Println(toStringBasic(ct))
+
+			ct = toIntArrBasic("GSRHDSLOVOZMWHSZOOYVXLNVZIFRMZMWZDZHGV")
+			ct = atbash(ct)
+			fmt.Println(ct)
+			fmt.Println(toStringBasic(ct))
+
+			ct = toIntArrBasic("QFHGZHDZGVIIVUOVXGHGSVUZXVHLLMVSFNZMSVZIGIVUOVXGHZMLGSVI")
+			ct = atbash(ct)
+			fmt.Println(toStringBasic(ct))
+
+			var scy = scytale_dec(toIntArrBasic("EIEPAADSNERDUATREVCNIIFEAONTURTRPYGSINRAEIOAONITNMSDNY"), 6)
+			fmt.Println(toStringBasic(scy))
+
+			scy = scytale_dec(toIntArrBasic("TWETIHAXROESAANSAMNCCNPSIYELPPTAEOHAROSELLFIREYAT"), 5)
+			fmt.Println(toStringBasic(scy))
+
+			var vg = vigenere_enc_autokey(toIntArrBasic("WALTERRALEIGHBRINGSTOBACCOTOENGLANDFROMAMERICA"), toIntArrBasic("B")[0])
+			fmt.Println(toStringBasic(vg))
+			fmt.Println(toStringBasic(vigenere_dec_autokey(vg, toIntArrBasic("B")[0])))
+
+			var kk = kid_krypto_init(47, 22, 11, 5)
+			fmt.Println(kk)
+			var kkEnc = kid_krypto_enc(kk, 1958)
+			fmt.Println(kkEnc)
+			fmt.Println(kid_krypto_dec(kk, kkEnc))
+	*/
+}
+
+func shift(text []int, shiftn int) []int {
 	var res []int
 	for _, char := range text {
-		res = append(res, int(char)-65)
+		res = append(res, (char+shiftn)%26)
 	}
 	return res
-}
-
-func toString(arr []int) string {
-	var res string = ""
-	for _, char := range arr {
-		res += string(char + 65)
-	}
-	return res
-}
-
-func main() {
-	var ct = toIntArr("KINGOFSHESHACHSHALLDRINK")
-	ct = atbash(ct)
-	fmt.Println(toString(ct))
-
-	ct = toIntArr("GSRHDSLOVOZMWHSZOOYVXLNVZIFRMZMWZDZHGV")
-	ct = atbash(ct)
-	fmt.Println(ct)
-	fmt.Println(toString(ct))
-
-	ct = toIntArr("QFHGZHDZGVIIVUOVXGHGSVUZXVHLLMVSFNZMSVZIGIVUOVXGHZMLGSVI")
-	ct = atbash(ct)
-	fmt.Println(toString(ct))
-
-	var scy = scytale_dec(toIntArr("EIEPAADSNERDUATREVCNIIFEAONTURTRPYGSINRAEIOAONITNMSDNY"), 6)
-	fmt.Println(toString(scy))
-
-	scy = scytale_dec(toIntArr("TWETIHAXROESAANSAMNCCNPSIYELPPTAEOHAROSELLFIREYAT"), 5)
-	fmt.Println(toString(scy))
-
-	var vg = vigenere_enc_autokey(toIntArr("WALTERRALEIGHBRINGSTOBACCOTOENGLANDFROMAMERICA"), toIntArr("B")[0])
-	fmt.Println(toString(vg))
-	fmt.Println(toString(vigenere_dec_autokey(vg, toIntArr("B")[0])))
-
-	var kk = kid_krypto_init(47, 22, 11, 5)
-	fmt.Println(kk)
-	var kkEnc = kid_krypto_enc(kk, 1958)
-	fmt.Println(kkEnc)
-	fmt.Println(kid_krypto_dec(kk, kkEnc))
 }
 
 func atbash(text []int) []int {
